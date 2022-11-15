@@ -58,3 +58,12 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Roll_a_ball/RollingBall/Temp/
+Roll_a_ball/RollingBall/Library/
+Roll_a_ball/RollingBall/Logs/
+Roll_a_ball/RollingBall/Assets/Scenes/
+Roll_a_ball/RollingBall/obj/
+Roll_a_ball/RollingBall/Packages/
+Roll_a_ball/RollingBall/ProjectSettings/
+Roll_a_ball/RollingBall/UserSettings/
+Roll_a_ball/
