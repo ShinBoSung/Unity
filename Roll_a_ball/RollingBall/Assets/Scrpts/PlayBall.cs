@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayBall : MonoBehaviour
 {
     public float jumpPowre;
     bool isJump;
     public int ItemCount;
+    public GameManagerLogic manager;
     Rigidbody rigid;
+    AudioSource audio;
 
     void Awake()
     {
         isJump = false;
         rigid = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -34,9 +38,30 @@ public class PlayBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name == "Quad")
+        if(collision.gameObject.tag == "Floor")
         {
             isJump = false;
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item")
+        {
+            ItemCount++;
+            audio.Play();
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Finish")
+        {
+           if (ItemCount == manager.TotalItemCount)
+            {
+                SceneManager.LoadScene("Example1-2");
+            }
+            else
+            {
+                SceneManager.LoadScene("Example1-1");
+            }
+        }
+    }   
 }
