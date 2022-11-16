@@ -51,16 +51,24 @@ public class PlayBall : MonoBehaviour
             ItemCount++;
             audio.Play();
             other.gameObject.SetActive(false);
+            manager.GetItem(ItemCount);
         }
         else if (other.tag == "Finish")
         {
            if (ItemCount == manager.TotalItemCount)
             {
-                SceneManager.LoadScene("Example1-2");
+                if (manager.Stage == 2)
+                {
+                    SceneManager.LoadScene(0);
+                }
+                else
+                {
+                    SceneManager.LoadScene(manager.Stage + 1);
+                }
             }
             else
             {
-                SceneManager.LoadScene("Example1-1");
+                SceneManager.LoadScene(manager.Stage);
             }
         }
     }   
