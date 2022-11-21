@@ -11,9 +11,7 @@ public class EnemyMove : MonoBehaviour
 
     void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        Think();
-
+        rigid = GetComponent<Rigidbody2D>();        
         //Invoke() : 주어진 시간이 지난 뒤, 지정된 함수를 실행하는 함수
 
         Invoke("Think", 5);
@@ -35,10 +33,7 @@ public class EnemyMove : MonoBehaviour
 
         if (rayHit.collider == null)
         {
-            nextMove *= -1;
-            CancelInvoke();
-            CancelInvoke();
-            Invoke("Think", 5);
+            Turn();
         }
     }
     
@@ -46,11 +41,25 @@ public class EnemyMove : MonoBehaviour
     void Think()
     {
         nextMove = Random.Range(-1, 2);
-        
-        
+
+        anim.SetInteger("walkSpeed", nextMove);
+
+        if (nextMove != 0)
+        {
+            spriteRenderer.flipX = nextMove == 1;
+        }
 
         float nextMoveTime = Random.Range(2f, 5f);
 
         Invoke("Think", nextMoveTime);
+
+    }
+
+    void Turn()
+    {
+        nextMove *= -1;
+        spriteRenderer.flipX = nextMove == 1;
+        CancelInvoke();
+        Invoke("Think", 2);
     }
 }
