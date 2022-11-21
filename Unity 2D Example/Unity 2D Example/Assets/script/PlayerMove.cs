@@ -90,19 +90,38 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
-            if(rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
+            if (rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
             {
                 OnAttack(collision.transform);
             }
             else
             {
                 OnDamaged(collision.transform.position);
-            }            
+            }
+        }
+        else if (collision.gameObject.tag == "Spikes")
+        {
+            OnDamaged(collision.transform.position);            
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            //Point
+
+            //Deactive Item
+            collision.gameObject.SetActive(false);
+        }
+
+        else if (collision.gameObject.tag == "Finish")
+        {
+            //Next Stage
+        }
+    }
     void OnAttack(Transform enemy)
     {
         rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
