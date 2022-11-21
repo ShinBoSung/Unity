@@ -9,12 +9,14 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
+    
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        
     }
 
     void Update()
@@ -90,8 +92,23 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            OnDamaged(collision.transform.position);
+            if(rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
+            {
+                OnAttack(collision.transform);
+            }
+            else
+            {
+                OnDamaged(collision.transform.position);
+            }            
         }
+    }
+
+    void OnAttack(Transform enemy)
+    {
+        rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+
+        EnemyMove enemyMove = enemy.GetComponent<EnemyMove>();
+        enemyMove.OnDamaged();
     }
 
     void OnDamaged(Vector2 targetPos)
@@ -113,4 +130,5 @@ public class PlayerMove : MonoBehaviour
         gameObject.layer = 8;
         spriteRenderer.color = new Color(1, 1, 1, 1);
     }
+    
 }
