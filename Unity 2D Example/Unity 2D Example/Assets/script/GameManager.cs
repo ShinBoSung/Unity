@@ -8,10 +8,23 @@ public class GameManager : MonoBehaviour
     public int stagePoint;
     public int stageIndex;
     public int health;
+    public GameObject[] stages;
     public PlayerMove player;
     public void NextStage()
     {
-        stageIndex++;
+        if(stageIndex < stages.Length-1)
+        {
+            stages[stageIndex].SetActive(false);
+            stageIndex++;
+
+            stages[stageIndex].SetActive(true);
+            PlayerReposition();
+        }
+        else
+        {
+            Time.timeScale = 0;
+            Debug.Log("게임 클리어!");
+        }
 
         totalPoint += stagePoint;
         stagePoint = 0;
@@ -41,12 +54,17 @@ public class GameManager : MonoBehaviour
             //Player Reposition
             if(health > 1)
             {
-                collision.attachedRigidbody.velocity = Vector2.zero;
-                collision.transform.position = new Vector3(0, 0, -1);
+                PlayerReposition();
             }
 
             //Health Down
             healthDown();
         }
+    }
+
+    void PlayerReposition()
+    {
+        player.transform.position = new Vector3(0, 0, -1);
+        player.VelocityZero();
     }
 }
