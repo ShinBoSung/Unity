@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public TalkManager talkManager;
     public GameObject talkPanel;
     public Text talkText;
     public GameObject scanObject;
     public bool isAction;
-
+    public int talkIndex;
 
     public void Action(GameObject sanObj)
     {
@@ -21,8 +22,14 @@ public class GameManager : MonoBehaviour
         {
             isAction = true;            
             scanObject = sanObj;
-            talkText.text = "이것의 이름은" + scanObject.name + "이라고 한다.";
+            ObjData objData = GetComponent<ObjData>();
+            Talk(objData.id, objData.isNpc);
         }
         talkPanel.SetActive(isAction);
+    }
+
+    void Talk(int id, bool isnpc)
+    {
+        talkManager.GetTalk(id, talkIndex);
     }
 }
