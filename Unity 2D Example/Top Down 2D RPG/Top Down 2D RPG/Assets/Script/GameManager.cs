@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
         if (isnpc)
         {
-            talkText.text = talkData;
+            talkText.text = talkData.Split(":")[];
 
             portraitImg.color = new Color(1, 1, 1, 1);
         }

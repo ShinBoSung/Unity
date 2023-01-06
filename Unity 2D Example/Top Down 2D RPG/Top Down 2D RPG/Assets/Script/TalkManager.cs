@@ -19,7 +19,7 @@ public class TalkManager : MonoBehaviour
     
     void GenerateData()
     {
-        talkData.Add(1000, new string[] {"안녕?", "이곳에 처음 왔구나?"});
+        talkData.Add(1000, new string[] {"안녕?:0", "이곳에 처음 왔구나?"});
 
         talkData.Add(2000, new string[] { "안녕?", "이곳에 처음 왔구나?" });
 
@@ -27,10 +27,10 @@ public class TalkManager : MonoBehaviour
 
         talkData.Add(200, new string[] { "누군가 사용한 흔적이 있다." });
 
-        portraitData.Add(1000 + 0,);
-        portraitData.Add(1000 + 1,);
-        portraitData.Add(1000 + 2,);
-        portraitData.Add(1000 + 3,);
+        portraitData.Add(1000 + 0, portraitArr[0]);
+        portraitData.Add(1000 + 1, portraitArr[1]);
+        portraitData.Add(1000 + 2, portraitArr[2]);
+        portraitData.Add(1000 + 3, portraitArr[3]);
     }
 
     public string GetTalk(int id, int talkIndex)
@@ -43,5 +43,10 @@ public class TalkManager : MonoBehaviour
         {
             return talkData[id][talkIndex];
         }        
+    }
+
+    public Sprite GetPortrait(int id, int portraitIndex)
+    {
+        return portraitData[id + portraitIndex];
     }
 }
